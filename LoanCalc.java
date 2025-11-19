@@ -7,11 +7,11 @@ public class LoanCalc {
 	// Gets the loan data and computes the periodical payment.
     // Expects to get three command-line arguments: loan amount (double),
     // interest rate (double, as a percentage), and number of payments (int).  
-	public static void main() {		
+	public static void main(String[] args) {		
 		// Gets the loan data
-		double loan = 200;
-		double rate = 200;
-		int n = 200;
+		double loan = Double.parseDouble(args[0]);
+		double rate = Double.parseDouble(args[1]);
+		int n = Integer.parseInt(args[2]);
 		System.out.println("Loan = " + loan + ", interest rate = " + rate + "%, periods = " + n);
 
 		// Computes the periodical payment using brute force search
@@ -30,7 +30,7 @@ public class LoanCalc {
 	private static double endBalance(double loan, double rate, int n, double payment){	
 		double balance=loan;
 		for (int i=0; i<n; i++) {
-			balance= balanc * (1+rate/100)-payment;
+			balance= balance * (1+rate/100)-payment;
 			loan=balance;
 		}
 		return balance;
@@ -61,8 +61,9 @@ public class LoanCalc {
         iterationCounter=0;
 		double L=0;
 		double H= loan;
+		double payment=0;
 		while (L<H){
-			double payment=(L+H)/2;
+			payment=(L+H)/2;
 			double balance=endBalance(loan, rate, n, payment);
 			if (Math.abs(balance)<=epsilon){
 			}
@@ -74,6 +75,6 @@ public class LoanCalc {
 			}
 			iterationCounter++;	
 		}
-		return payement;
+		return payment;
 	}
 }
